@@ -56,7 +56,11 @@ export class EventsController {
 
     @Patch(':id')
     async update(@Param('id') id, @Body() input: UpdateEventDto){
-        const event = await this.repository.findOne(id)
+        const event = await this.repository.findOne({
+            where: {
+                id
+            }
+        })
         return await this.repository.save({
             ...event,
             ...input,
